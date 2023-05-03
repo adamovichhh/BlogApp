@@ -1,14 +1,18 @@
 import React from 'react'
 import { Link, NavLink } from 'react-router-dom'
+import { useDispatch, useSelector } from 'react-redux'
+import { checkIsAuth, logout } from '../redux/features/auth/authSlice'
+import { toast } from 'react-toastify'
 
 export const Navbar = () => {
 
-  const isAuth = true
+  const isAuth = useSelector(checkIsAuth)
   const activeStyles = {
     color: 'white',
   }
 
-  return <div className='flex py-4 justify-between items-center'>
+  return (
+    <div className='flex py-4 justify-between items-center'>
 
     <span className='flex justify-center items-center w-6 h-6 bg-gray-600 text-xs text-white rounded-sm'>
       E
@@ -20,7 +24,7 @@ export const Navbar = () => {
         <li>
           <NavLink
             to={'/'}
-            href="/"
+            href='/'
             className=' text-xs text-gray-400 hover:text-white'
             style={({ isActive }) =>
               isActive ? activeStyles : undefined
@@ -33,7 +37,7 @@ export const Navbar = () => {
         <li>
           <NavLink
             to={'/posts'}
-            href="/"
+            href='/'
             className=' text-xs text-gray-400 hover:text-white'
             style={({ isActive }) =>
               isActive ? activeStyles : undefined
@@ -46,7 +50,7 @@ export const Navbar = () => {
         <li>
           <NavLink
             to={'/new'}
-            href="/"
+            href='/'
             className=' text-xs text-gray-400 hover:text-white'
             style={({ isActive }) =>
               isActive ? activeStyles : undefined
@@ -68,4 +72,4 @@ export const Navbar = () => {
     </div>
 
   </div>
-} 
+)} 
