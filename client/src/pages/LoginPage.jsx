@@ -1,28 +1,26 @@
 import React, { useState, useEffect } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
-import { loginUser } from '../redux/features/auth/authSlice'
+import { checkIsAuth, loginUser } from '../redux/features/auth/authSlice'
 import { toast } from 'react-toastify'
 
 export const LoginPage = () => {
-  const [username, setUserName] = useState('')
+  const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
-  const {status} = useSelector((state) => state.auth)
+
+  const { status } = useSelector((state) => state.auth)
   const dispatch = useDispatch()
   const navigate = useNavigate()
 
-  useEffect( () => {
-    if(status){
-      toast(status)
-    }
+  useEffect(() => {
+    if (status) toast(status)
   }, [status])
-
 
   const handleSubmit = () => {
     try {
-        dispatch(loginUser({username, password}))
+      dispatch(loginUser({ username, password }))
     } catch (error) {
-        console.log(error)
+      console.log(error)
     }
   }
 
@@ -37,7 +35,7 @@ export const LoginPage = () => {
         <input
           type='text'
           value={username}
-          onChange={(e) => setUserName(e.target.value)}
+          onChange={(e) => setUsername(e.target.value)}
           placeholder='Username'
           className='mt-4 text-black w-full rounded-lg bg-gray-400 border py-2 px-2 text-xs outline-none placeholder:text-gray-700'
         />

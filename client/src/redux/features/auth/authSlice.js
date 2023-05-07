@@ -44,9 +44,10 @@ export const loginUser = createAsyncThunk(
     },
 )
 
+
 export const getMe = createAsyncThunk('auth/getMe', async () => {
     try {
-        const { data } = await axios.get('/auth/getMe')
+        const { data } = await axios.get('/auth/me')
         return data
     } catch (error) {
         console.log(error)
@@ -95,7 +96,8 @@ export const authSlice = createSlice({
             state.status = action.payload.message
             state.isLoading = false
         },
-        // Проверка авторизации
+
+        // Check authorization
         [getMe.pending]: (state) => {
             state.isLoading = true
             state.status = null
@@ -104,16 +106,17 @@ export const authSlice = createSlice({
             state.isLoading = false
             state.status = null
             state.user = action.payload?.user
-            state.token = action.payload?.token
+            state.token = window.localStorage.getItem('token')
         },
         [getMe.rejectWithValue]: (state, action) => {
             state.status = action.payload.message
             state.isLoading = false
         },
-    },
+
+
+    }
 })
 
-export const checkIsAuth = (state) => Boolean(state.auth.token)
-
-export const { logout } = authSlice.actions
+export const checkIsAuth = ((state) => Boolean(state.auth.token))
 export default authSlice.reducer
+export const { logout } = authSlice.actions
