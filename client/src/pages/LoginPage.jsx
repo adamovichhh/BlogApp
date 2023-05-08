@@ -11,10 +11,12 @@ export const LoginPage = () => {
   const { status } = useSelector((state) => state.auth)
   const dispatch = useDispatch()
   const navigate = useNavigate()
+  const isAuth = useSelector(checkIsAuth)
 
   useEffect(() => {
     if (status) toast(status)
-  }, [status])
+    if (isAuth) navigate('/')
+  }, [status, isAuth, navigate])
 
   const handleSubmit = () => {
     try {
