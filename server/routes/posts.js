@@ -1,5 +1,11 @@
 import { Router } from 'express'
-import { createPost, getAll, getById, getMyPosts, removePost, updatePost } from '../controllers/posts.js'
+import { createPost,
+         getAll, 
+         getById, 
+         getMyPosts, 
+         removePost, 
+         updatePost,
+         getPostComments } from '../controllers/posts.js'
 import { checkAuth } from '../utils/checkAuth.js'
 
 const router = new Router()
@@ -7,7 +13,6 @@ const router = new Router()
 //Create post
 // http://localhost:3002/api/posts/
 router.post('/', checkAuth, createPost)
-
 
 //Get All Posts
 // http://localhost:3002/api/posts/
@@ -28,5 +33,9 @@ router.delete('/:id',checkAuth, removePost)
 //Get My Posts
 // http://localhost:3002/api/posts/user/me
 router.get('/user/me',checkAuth, getMyPosts)
+
+// Get Post Comments
+// http://localhost:3002/api/posts/comments/:id
+router.get('/comments/:id', getPostComments)
 
 export default router
